@@ -1,0 +1,32 @@
+plugins {
+    id 'com.android.application'
+}
+
+def runNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1') as Integer
+
+android {
+    namespace 'io.github.aquasensevit.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'io.github.aquasensevit.app'
+        minSdk 24
+        targetSdk 34
+        versionCode runNumber
+        versionName "1.0.${runNumber}"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            // Signed with the build machine's standard key so the APK installs directly.
+            // Publishing on the Play Store would need your own private upload key instead.
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
